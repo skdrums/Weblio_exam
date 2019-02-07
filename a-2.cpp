@@ -26,7 +26,7 @@ struct medal
         int bronze;
 };
 
-
+//バブルソートによるソートのmethod
 void SortByMedal(struct medal *p){
 
     struct medal t;
@@ -94,6 +94,7 @@ int main(void){
     
     struct medal *p,a[N];
 
+    //read file(medal_results.tsv)
     FILE *fp ;
     char buf[MAX]={0};
     if((fp=fopen("medal_results.tsv","r"))!=NULL){
@@ -104,19 +105,16 @@ int main(void){
             a[i].silver = atoi(strtok(NULL,"\t"));
             a[i].bronze = atoi(strtok(NULL,"\t"));
             
-        cout<<a[i].name<<endl;
+        
         }
-    }
-    for(int i = 0; i < N; i++)
-    {
-        cout<<a[i].name<<endl;
-
     }
     
     p=a;
 
+    //sort
     SortByMedal(p);
 
+    //output
     for(int i = 0; i < N; i++)
     {
         cout<<(p+i)->name<<" "<<(p+i)->gold<<" "<<
