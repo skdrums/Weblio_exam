@@ -22,17 +22,12 @@ int main(void){
     if((fp=fopen("medal_results.tsv","r"))!=NULL){
         /*ファイルの終わりまで繰り返し読み込む*/
         for(int i=0; fgets(buf,MAX,fp) != NULL; i++ ){
-            //(p+i)->name = strtok(buf,"\t");
             a[i].name=strtok(buf,"\t");
             a[i].gold = atoi(strtok(NULL,"\t"));
             a[i].silver = atoi(strtok(NULL,"\t"));
             a[i].bronze = atoi(strtok(NULL,"\t"));
             cout<<a[i].name << a[i].gold<<a[i].silver<<a[i].bronze<<endl;
-            // a[0].name=ary[0];  
-            // //(p+i)->gold=atoi(ary[1]);
-            // (p+i)->silver=atoi(ary[2]);
-            // (p+i)->bronze=atoi(ary[3]);
-            // cout << (p+i)->name << (p+i)->gold<<endl;
+
         }
     }
 }
