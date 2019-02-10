@@ -1,0 +1,32 @@
+■■■【B-2】組み合わせの問題
+
+●問題：
+デカルト平面上に100個の異なる点が与えられているとき、
+これらの点から、N角形が形成されるように任意の点をN個選択して形成されるN角形の面積が最小となるような
+xyの組み合わせを全て取得するプログラムを実装して下さい。
+ただし、xとyは-100 <= x <= 100, -100 <= y <= 100 を取る整数、Nは 3<= N <=9の自然数とする。
+
+●クラス名：AreaCalculator
+　－必ず実装するコンストラクタ
+　　　・引数:int[][]
+　　　・xとyの値が格納されたint型の2次元配列。
+　－必ず実装するメソッド：
+　　　・メソッド名：getMinimumPairs(int)
+　　　・戻り値：int[][][]
+
+●javaの場合のサンプル
+ // 題意を満たすような値の2次元配列をランダムに生成
+ int[][] xyArray = someMethod(); 
+
+ AreaCalculator areaCalculator = new AreaCalculator(xyArray);
+
+ // 面積が最小値を取る三角形を形成する組み合わせのリストを取得
+ areaCalculator.getMinimumPairs(3);
+
+ // 面積が最小値を取る四角形を形成する組み合わせのリストを取得
+ areaCalculator.getMinimumPairs(4);
+
+ // 面積が最小値を取る五角形を形成する組み合わせのリストを取得
+ areaCalculator.getMinimumPairs(5);
+
+以上で【B-2】の課題終了
