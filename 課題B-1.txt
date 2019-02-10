@@ -1,0 +1,31 @@
+■■■【B-1】判定の問題
+
+●問題
+与えられたホスト名が、あらかじめ用意されたドメイン名の集合Dのいずれかで終端するかどうかを判定したい。
+この時、あらかじめ用意されたドメインの数をNとするとき、Nの個数に依存せずにO(1)で、与えられたホスト名が、
+集合Dのいずれかのドメイン名で終端するかどうかを判定することが可能なクラス「StringMatcher」を実装して下さい。
+
+●実装するクラス名：StringMatcher
+　－必ず実装するコンストラクタ：
+　　引数:java.lang.String[]
+　－必ず実装するメソッド：
+　　メソッド名：endsWith(java.lang.String)
+　　戻り値：boolean
+
+●javaの場合のサンプル
+－クラス名：StringMatcher
+ // 判定対象とするホスト名
+ String targetHostName = "www.weblio.jp";
+ 
+ // 許可するドメイン名
+ String[] targetDomainNames = new String[]{"yahoo.co.jp", "google.co.jp", "weblio.jp"};
+ 
+ // 判定用のクラス
+ StringMatcher stringMatcher = new StringMatcher(targetDomainNames);
+ 
+ // targetHostNameがあらかじめ登録された「targetDomainNames」のいずれかで終端している場合はtrue
+ if (stringMatcher.endsWith(targetHostName)) {
+    System.out.println(targetHostName);
+ }
+
+以上で【B-1】の課題終了
