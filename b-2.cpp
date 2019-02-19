@@ -16,10 +16,6 @@ struct Vertex2D{
 	double y;
 };
 
-struct zahyo{
-    double x;
-    double y;
-};
 //ベクトルの定義(頂点と同じ)
 #define Vector2D Vertex2D
 
@@ -35,17 +31,23 @@ double cross_vector(Vector2D vl, Vector2D vr) {
 
 //点Pと線(AB)の距離
 double Distance_DotAndLine(Vertex2D, Vertex2D, Vertex2D);
-double Distance_DotAndDot(zahyo,zahyo);
+double Distance_DotAndDot(Vertex2D,Vertex2D);
 
 int main(void){
 
     struct min_line{
         double min;
-        zahyo start;
-        zahyo end;
-    } min_line[10];
+        Vertex2D start;
+        Vertex2D end;
+    } min_line[10]={0,{0,0},{0,0}};
 
-    zahyo z[M];
+    struct min_triangle{
+        Vertex2D dot_one;
+        Vertex2D dot_two;
+        Vertex2D dot_three;
+    } min_tri[10]={{0,0},{0,0},{0,0}};
+
+    Vertex2D z[M];
     double m,n;
     Vertex2D p={0,10},a={0,0},b={10,3};
 
@@ -59,6 +61,7 @@ int main(void){
             z[i].y=rand100(mt)%100*seifu();
     }
 
+    //最短距離の２点の組み合わせ
     min_line[0].min=Distance_DotAndDot(z[0],z[1]);
     min_line[0].start=z[0];
     min_line[0].end=z[1];
@@ -66,11 +69,11 @@ int main(void){
     int line_number=1;
     for(int i=0;i<M-1;i++){
         for(int j=i+1;j<M;j++){
-            if(min_line[0].min>Distance_DotAndDot(z[i],z[j])){
-                min_line[0].min=Distance_DotAndDot(z[0],z[1]);
+            if(min_line[0].min>Distance_DotAndDot(z[i],z[j])&&Distance_DotAndDot(z[i],z[j])!=0){
+                min_line[0].min=Distance_DotAndDot(z[i],z[j]);
                 min_line[0].start=z[i];
                 min_line[0].end=z[j];
-
+                for(int k=1;k<=line_number;k++) min_line[k]=min_line[9];
             }
             else if(min_line[0].min==Distance_DotAndDot(z[i],z[j])){
                 min_line[line_number].min=Distance_DotAndDot(z[0],z[1]);
@@ -79,11 +82,33 @@ int main(void){
             }
         }
     }
-
-
-    for(int i=0;i<line_number;i++){
-        cout<<min_line[i].min<<" "<<min_line[i].start.x<<" "<<min_line[i].end.x<<endl;
+    int flag;
+    for(int i=0;i<10;i++){
+        if(min_line[i].min==0){
+            flag=i;
+            break;
+        }
     }
+    //確認
+    for(int i=0;i<line_number;i++){
+        cout<<min_line[i].min<<" "<<min_line[i].start.x<<" "<<min_line[i].start.y<<" "<<min_line[i].end.x<<" "<<min_line[i].end.y<<endl;
+    }
+    cout<<flag<<endl;
+
+    //上の２点による線と最小の距離を取る点を探す
+    for(int i=0;i<flag;i++){
+        Vertex2D vertex;
+        if((min_line[i].start.x!=z[0].x&&min_line[i].start.y!=z[0].y)&&(min_line[i].end.x!=z[0].x&&min_line[i].end.y!=z[0].y)) vertex=z[0];
+        else if((min_line[i].start.x!=z[1].x&&min_line[i].start.y!=z[1].y)&&(min_line[i].end.x!=z[1].x&&min_line[i].end.y!=z[1].y)) vertex=z[1];
+        else vertex=z[2];
+        double min=Distance_DotAndLine(vertex,min_line[i].start,min_line[i].end);
+        for(int j=1;j<M;j++){
+            if((min_line[i].start.x==z[j].x&&min_line[i].start.y==z[j].y)||(min_line[i].end.x==z[j].x&&min_line[i].end.y==z[j].y)) continue;
+            if(min>Distance_DotAndLine(z[j],min_line[i].start,min_line[i].end))
+        }
+    }
+
+
 
 
 }
@@ -115,7 +140,7 @@ double Distance_DotAndLine(Vertex2D P, Vertex2D A, Vertex2D B )
 
 }
 
-double Distance_DotAndDot(zahyo a,zahyo b){
+double Distance_DotAndDot(Vertex2D a,Vertex2D b){
     double m,n;
     m=pow(a.x-b.x,2);
     n=pow(a.y-b.y,2);
